@@ -15,9 +15,15 @@ public class Player {
 
     public static ArrayList<Player> allPlayers = new ArrayList<>();
     private String Nome;
+    private int win;
+    private int defeat;
+    private int draw;
 
     public Player(String Nome) {
-        this.Nome = Nome;
+        this.Nome = Nome.toUpperCase();
+        this.win = 0;
+        this.defeat = 0;
+        this.draw = 0;
         allPlayers.add(this);
     }
 
@@ -25,20 +31,30 @@ public class Player {
         return Nome;
     }
 
-//    public static void verJogadores() {
-//        if (allPlayers.isEmpty()) {
-//            System.out.println("Não existem Jogadores");
-//        } else {
-//            int i = 1;
-//            for (Player p : allPlayers) {
-//
-//                System.out.println("Jogador " + i + " - " + p.getNome());
-//                i++;
-//
-//            }
-//        }
-//
-//    }
+    public int getWin() {
+        return win;
+    }
+
+    public void setWin(int win) {
+        this.win = win;
+    }
+
+    public int getDerrota() {
+        return defeat;
+    }
+
+    public void setDerrota(int Derrota) {
+        this.defeat = Derrota;
+    }
+
+    public int getEmpate() {
+        return draw;
+    }
+
+    public void setEmpate(int empate) {
+        this.draw = empate;
+    }
+
 }
 
 class JogadoresPainel {
@@ -66,7 +82,7 @@ class JogadoresPainel {
         } else {
             int i = 1;
             for (Player p : Player.allPlayers) {
-                outputArea.append("Jogador " + i + " - " + p.getNome() + "\n");
+                outputArea.append("Jogador " + i + " - " + p.getNome() + " Vitoria - " + p.getWin() + " Derrota - " + p.getDerrota() + " Empate - " + p.getEmpate() + "\n");
                 i++;
             }
         }

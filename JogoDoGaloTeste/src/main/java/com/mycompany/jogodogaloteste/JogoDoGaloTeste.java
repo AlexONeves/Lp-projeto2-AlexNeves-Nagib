@@ -10,15 +10,31 @@ import javax.swing.*;
  */
 public class JogoDoGaloTeste extends JFrame {
 
+    private Player X;
+    private Player O;
     JButton[] bt = new JButton[9];
+    JButton btExit = new JButton();
     JLabel placar = new JLabel("Placar");
     JLabel px = new JLabel("X 0");
     JLabel po = new JLabel("O 0");
-    int PX, PO = 0;
+    int PWinX = 0;
+    int PWinO = 0;
+    int PEmpateX = 0;
+    int PEmpateO = 0;
+    int PDerrotaX = 0;
+    int PDerrotaO = 0;
     boolean xo = false;
     boolean[] click = new boolean[9];
 
-    public JogoDoGaloTeste() {
+    public JogoDoGaloTeste(Player X, Player O) {
+        this.O = O;
+        this.X = X;
+        this.PWinX = X.getWin();
+        this.PWinO = O.getWin();
+        this.PDerrotaO = O.getDerrota();
+        this.PDerrotaX = X.getDerrota();
+        this.PEmpateO = O.getEmpate();
+        this.PEmpateX = X.getEmpate();
         setVisible(true);
         setTitle("Jogo do Galo");
         setDefaultCloseOperation(3); //Janela irá fechar quando clicarmos no X da janela;
@@ -28,10 +44,14 @@ public class JogoDoGaloTeste extends JFrame {
         add(placar);
         add(px);
         add(po);
-
+        add(btExit);
         placar.setBounds(400, 50, 100, 30);
-        px.setBounds(400, 75, 100, 30);
-        po.setBounds(450, 75, 100, 30);
+        px.setText(X.getNome() + " Vitorias: " + PWinX + " Derrotas: " + PDerrotaX + " Empates: " + PEmpateX);
+        po.setText(O.getNome() + " Vitorias: " + PWinO + " Derrotas: " + PDerrotaO + " Empates: " + PEmpateO);
+        px.setBounds(400, 75, 300, 30);
+        po.setBounds(400, 95, 300, 30);
+        btExit.setBounds(50, 400, 125, 30);
+        btExit.setText("Ecrã Principal");
         // criar os botões;
         int cont = 0; //contador
         for (int i = 0; i < 3; i++) {
@@ -49,6 +69,14 @@ public class JogoDoGaloTeste extends JFrame {
         }
 
         // ação dos botões;
+        btExit.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FirstPage();
+                setVisible(false);
+            }
+        });
+
         bt[0].addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -145,8 +173,15 @@ public class JogoDoGaloTeste extends JFrame {
     }
 
     public void atualizar() {
-        px.setText("X " + PX);
-        po.setText("O " + PO);
+        px.setText(X.getNome() + " Vitorias: " + PWinX + " Derrotas: " + PDerrotaX + " Empates: " + PEmpateX);
+        po.setText(O.getNome() + " Vitorias: " + PWinO + " Derrotas: " + PDerrotaO + " Empates: " + PEmpateO);
+
+        X.setWin(PWinX);
+        O.setWin(PWinO);
+        X.setEmpate(PEmpateX);
+        O.setEmpate(PEmpateO);
+        X.setDerrota(PDerrotaX);
+        O.setDerrota(PDerrotaO);
     }
 
     public void ganhou() {
@@ -164,8 +199,10 @@ public class JogoDoGaloTeste extends JFrame {
                 || (bt[2].getText() == "X" && bt[5].getText() == "X" && bt[8].getText() == "X")
                 || (bt[0].getText() == "X" && bt[4].getText() == "X" && bt[8].getText() == "X")
                 || (bt[6].getText() == "X" && bt[4].getText() == "X" && bt[2].getText() == "X")) {
-            JOptionPane.showMessageDialog(null, "X Ganhou");
-            PX++;
+            JOptionPane.showMessageDialog(null, X.getNome() + " Ganhou");
+
+            PWinX++;
+            PDerrotaO++;
             atualizar();
             limpar();
         } else if ((bt[0].getText() == "O" && bt[1].getText() == "O" && bt[2].getText() == "O")
@@ -176,13 +213,17 @@ public class JogoDoGaloTeste extends JFrame {
                 || (bt[2].getText() == "O" && bt[5].getText() == "O" && bt[8].getText() == "O")
                 || (bt[0].getText() == "O" && bt[4].getText() == "O" && bt[8].getText() == "O")
                 || (bt[6].getText() == "O" && bt[4].getText() == "O" && bt[2].getText() == "O")) {
-            JOptionPane.showMessageDialog(null, "O Ganhou");
-            PO++;
+            JOptionPane.showMessageDialog(null, O.getNome() + " Ganhou");
+            PWinO++;
+            PDerrotaX++;
             atualizar();
             limpar();
         } else if (cont == 9) {
             JOptionPane.showMessageDialog(null, "Empate");
+            PEmpateX++;
+            PEmpateO++;
             limpar();
+            atualizar();
         }
     }
 

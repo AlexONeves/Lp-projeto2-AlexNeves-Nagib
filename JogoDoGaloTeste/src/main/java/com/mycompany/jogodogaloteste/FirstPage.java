@@ -19,6 +19,7 @@ public class FirstPage extends JFrame {
     JButton btBeginGame = new JButton();
     JButton btMostrarPlayers = new JButton();
     JButton btCriarPlayer = new JButton();
+    JButton btComeçarJogo = new JButton();
 
     //Labels
     JLabel placar = new JLabel("<html>Trabalho Realizado por <br> Alexandre Neves e Nagib Camara</html>");
@@ -74,7 +75,7 @@ public class FirstPage extends JFrame {
                 if (Player.allPlayers.isEmpty() || Player.allPlayers.size() < 2) {
                     JOptionPane.showMessageDialog(null, "Erro: Não existem jogadores suficientes para começar o jogo!!!", "Erro", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    new JogoDoGaloTeste();
+                    new ComeçarJogoJanela();
                     frame.setVisible(false);
                 }
 
@@ -98,7 +99,7 @@ public class FirstPage extends JFrame {
                 } else {
                     boolean playerExists = false;
                     for (Player player : Player.allPlayers) {
-                        if (player.getNome().equals(Nome)) {
+                        if (player.getNome().equals(Nome.toUpperCase())) {
                             playerExists = true;
                             break;
                         }
@@ -115,5 +116,77 @@ public class FirstPage extends JFrame {
 
             }
         });
+    }
+}
+
+class ComeçarJogoJanela {
+
+    JButton btComeçarJogo = new JButton();
+    JLabel InsiraX = new JLabel("Insira o Jogador X:");
+    JLabel InsiraO = new JLabel("Insira o Jogador O:");
+    JTextField jogadorxNome = new JTextField(20);
+    JTextField jogadorONome = new JTextField(20);
+    JFrame frame = new JFrame("Escolher Jogadores");
+
+    public ComeçarJogoJanela() {
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(3); //Janela irá fechar quando clicarmos no X da janela;
+        frame.setLayout(null);
+        frame.setSize(500, 300);
+        frame.setLocationRelativeTo(null);//Centrar pag
+        frame.add(btComeçarJogo);
+        frame.add(jogadorxNome);
+        frame.add(jogadorONome);
+        frame.add(InsiraX);
+        frame.add(InsiraO);
+        btComeçarJogo.setBounds(180, 200, 125, 30);
+        btComeçarJogo.setFont(new Font("Arial", Font.BOLD, 10));
+        btComeçarJogo.setText("Começar Jogo");
+
+        jogadorxNome.setBounds(180, 60, 125, 30);
+        jogadorONome.setBounds(180, 120, 125, 30);
+
+        InsiraX.setBounds(180, 30, 125, 30);
+        InsiraO.setBounds(180, 90, 125, 30);
+
+        btComeçarJogo.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String NomeX = jogadorxNome.getText();
+                String NomeO = jogadorONome.getText();
+                if (NomeX.isEmpty() || NomeO.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Escolha os dois jogadores antes de começar!!", "Erro", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    boolean playerXExists = false;
+                    boolean playerOExists = false;
+                    Player JogadorXSelecionado = null;
+                    Player JogadorOSelecionado = null;
+                    for (Player player : Player.allPlayers) {
+                        if (player.getNome().equals(NomeX.toUpperCase())) {
+                            playerXExists = true;
+                            JogadorXSelecionado = player;
+                            break;
+                        }
+
+                    }
+                    for (Player player : Player.allPlayers) {
+                        if (player.getNome().equals(NomeO.toUpperCase())) {
+                            playerOExists = true;
+                            JogadorOSelecionado = player;
+                            break;
+                        }
+
+                    }
+
+                    if (playerXExists == true && playerOExists == true) {
+                        new JogoDoGaloTeste(JogadorXSelecionado, JogadorOSelecionado);
+                        frame.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Escolha corretamente os jogadores!!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
     }
 }
