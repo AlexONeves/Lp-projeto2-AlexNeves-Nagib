@@ -12,6 +12,7 @@ public class JogoDoGaloTeste extends JFrame {
 
     private Player X;
     private Player O;
+
     JButton[] bt = new JButton[9];
     JButton btExit = new JButton();
     JLabel placar = new JLabel("Placar");
@@ -25,8 +26,10 @@ public class JogoDoGaloTeste extends JFrame {
     int PDerrotaO = 0;
     boolean xo = false;
     boolean[] click = new boolean[9];
+    JLabel NumeroDeJogosTotal = new JLabel("Numero de Jogos: ");
 
     public JogoDoGaloTeste(Player X, Player O) {
+
         this.O = O;
         this.X = X;
         this.PWinX = X.getWin();
@@ -35,6 +38,7 @@ public class JogoDoGaloTeste extends JFrame {
         this.PDerrotaX = X.getDerrota();
         this.PEmpateO = O.getEmpate();
         this.PEmpateX = X.getEmpate();
+
         setVisible(true);
         setTitle("Jogo do Galo");
         setDefaultCloseOperation(3); //Janela irá fechar quando clicarmos no X da janela;
@@ -45,11 +49,14 @@ public class JogoDoGaloTeste extends JFrame {
         add(px);
         add(po);
         add(btExit);
+        add(NumeroDeJogosTotal);
         placar.setBounds(400, 50, 100, 30);
         px.setText(X.getNome() + " Vitorias: " + PWinX + " Derrotas: " + PDerrotaX + " Empates: " + PEmpateX);
         po.setText(O.getNome() + " Vitorias: " + PWinO + " Derrotas: " + PDerrotaO + " Empates: " + PEmpateO);
         px.setBounds(400, 75, 300, 30);
         po.setBounds(400, 95, 300, 30);
+        NumeroDeJogosTotal.setBounds(400, 115, 200, 30);
+        NumeroDeJogosTotal.setText("Numero de Jogos já jogados: " + NumJogos.JogosTotal);
         btExit.setBounds(50, 400, 125, 30);
         btExit.setText("Ecrã Principal");
         // criar os botões;
@@ -173,6 +180,7 @@ public class JogoDoGaloTeste extends JFrame {
     }
 
     public void atualizar() {
+
         px.setText(X.getNome() + " Vitorias: " + PWinX + " Derrotas: " + PDerrotaX + " Empates: " + PEmpateX);
         po.setText(O.getNome() + " Vitorias: " + PWinO + " Derrotas: " + PDerrotaO + " Empates: " + PEmpateO);
 
@@ -182,6 +190,10 @@ public class JogoDoGaloTeste extends JFrame {
         O.setEmpate(PEmpateO);
         X.setDerrota(PDerrotaX);
         O.setDerrota(PDerrotaO);
+        NumJogos.JogosTotal++;
+
+        NumeroDeJogosTotal.setText("Numero de Jogos já jogados: " + NumJogos.JogosTotal);
+
     }
 
     public void ganhou() {
@@ -203,6 +215,7 @@ public class JogoDoGaloTeste extends JFrame {
 
             PWinX++;
             PDerrotaO++;
+
             atualizar();
             limpar();
         } else if ((bt[0].getText() == "O" && bt[1].getText() == "O" && bt[2].getText() == "O")
@@ -216,12 +229,14 @@ public class JogoDoGaloTeste extends JFrame {
             JOptionPane.showMessageDialog(null, O.getNome() + " Ganhou");
             PWinO++;
             PDerrotaX++;
+
             atualizar();
             limpar();
         } else if (cont == 9) {
             JOptionPane.showMessageDialog(null, "Empate");
             PEmpateX++;
             PEmpateO++;
+
             limpar();
             atualizar();
         }

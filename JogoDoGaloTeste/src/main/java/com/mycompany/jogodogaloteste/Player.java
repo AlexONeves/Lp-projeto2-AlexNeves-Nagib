@@ -18,12 +18,15 @@ public class Player {
     private int win;
     private int defeat;
     private int draw;
+    private int NumJogos;
+    private int NumJogosTotal;
 
     public Player(String Nome) {
         this.Nome = Nome.toUpperCase();
         this.win = 0;
         this.defeat = 0;
         this.draw = 0;
+        this.NumJogos = 0;
         allPlayers.add(this);
     }
 
@@ -33,6 +36,10 @@ public class Player {
 
     public int getWin() {
         return win;
+    }
+
+    public int getNumJogos() {
+        return NumJogos;
     }
 
     public void setWin(int win) {
@@ -53,6 +60,10 @@ public class Player {
 
     public void setEmpate(int empate) {
         this.draw = empate;
+    }
+
+    public void setNumJogos() {
+        this.NumJogos++;
     }
 
 }

@@ -36,7 +36,6 @@ public class FirstPage extends JFrame {
 
     public FirstPage() {
         frame.setVisible(true);
-
         frame.getContentPane().setBackground(Color.white);
         frame.setDefaultCloseOperation(3); //Janela irá fechar quando clicarmos no X da janela;
         frame.setLayout(null);
@@ -50,6 +49,7 @@ public class FirstPage extends JFrame {
         frame.add(btMostrarPlayers);
         frame.add(CriarJog);
         frame.add(btCriarPlayer);
+
         label.setBounds(5, 5, 125, 128);
         placar.setBounds(5, 430, 300, 30);
 
@@ -77,6 +77,7 @@ public class FirstPage extends JFrame {
                 } else {
                     new ComeçarJogoJanela();
                     frame.setVisible(false);
+
                 }
 
             }
@@ -117,6 +118,7 @@ public class FirstPage extends JFrame {
             }
         });
     }
+
 }
 
 class ComeçarJogoJanela {
@@ -124,6 +126,7 @@ class ComeçarJogoJanela {
     JButton btComeçarJogo = new JButton();
     JLabel InsiraX = new JLabel("Insira o Jogador X:");
     JLabel InsiraO = new JLabel("Insira o Jogador O:");
+
     JTextField jogadorxNome = new JTextField(20);
     JTextField jogadorONome = new JTextField(20);
     JFrame frame = new JFrame("Escolher Jogadores");
@@ -139,6 +142,7 @@ class ComeçarJogoJanela {
         frame.add(jogadorONome);
         frame.add(InsiraX);
         frame.add(InsiraO);
+
         btComeçarJogo.setBounds(180, 200, 125, 30);
         btComeçarJogo.setFont(new Font("Arial", Font.BOLD, 10));
         btComeçarJogo.setText("Começar Jogo");
@@ -154,6 +158,7 @@ class ComeçarJogoJanela {
             public void actionPerformed(ActionEvent e) {
                 String NomeX = jogadorxNome.getText();
                 String NomeO = jogadorONome.getText();
+
                 if (NomeX.isEmpty() || NomeO.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Escolha os dois jogadores antes de começar!!", "Erro", JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -177,13 +182,21 @@ class ComeçarJogoJanela {
                         }
 
                     }
+                    if (JogadorXSelecionado.getNome() == JogadorOSelecionado.getNome()) {
+                        JOptionPane.showMessageDialog(null, "Não podem ser os mesmos jogadores!!", "Erro", JOptionPane.ERROR_MESSAGE);
 
-                    if (playerXExists == true && playerOExists == true) {
-                        new JogoDoGaloTeste(JogadorXSelecionado, JogadorOSelecionado);
-                        frame.setVisible(false);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Escolha corretamente os jogadores!!", "Erro", JOptionPane.ERROR_MESSAGE);
+                        if (playerXExists == true && playerOExists == true) {
+
+                            new JogoDoGaloTeste(JogadorXSelecionado, JogadorOSelecionado);
+                            JogadorXSelecionado.setNumJogos();
+                            JogadorOSelecionado.setNumJogos();
+                            frame.setVisible(false);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Escolha corretamente os jogadores!!", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
+
                 }
             }
         });
