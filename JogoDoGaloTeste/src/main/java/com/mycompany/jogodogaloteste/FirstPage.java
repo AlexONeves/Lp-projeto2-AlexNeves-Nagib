@@ -189,8 +189,7 @@ class ComeçarJogoJanela {
                         if (playerXExists == true && playerOExists == true) {
 
                             new JogoDoGaloTeste(JogadorXSelecionado, JogadorOSelecionado);
-                            JogadorXSelecionado.setNumJogos();
-                            JogadorOSelecionado.setNumJogos();
+
                             frame.setVisible(false);
                         } else {
                             JOptionPane.showMessageDialog(null, "Escolha corretamente os jogadores!!", "Erro", JOptionPane.ERROR_MESSAGE);

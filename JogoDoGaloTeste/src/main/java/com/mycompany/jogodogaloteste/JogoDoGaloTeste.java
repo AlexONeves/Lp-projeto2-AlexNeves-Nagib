@@ -50,12 +50,12 @@ public class JogoDoGaloTeste extends JFrame {
         add(po);
         add(btExit);
         add(NumeroDeJogosTotal);
-        placar.setBounds(400, 50, 100, 30);
-        px.setText(X.getNome() + " Vitorias: " + PWinX + " Derrotas: " + PDerrotaX + " Empates: " + PEmpateX);
-        po.setText(O.getNome() + " Vitorias: " + PWinO + " Derrotas: " + PDerrotaO + " Empates: " + PEmpateO);
-        px.setBounds(400, 75, 300, 30);
-        po.setBounds(400, 95, 300, 30);
-        NumeroDeJogosTotal.setBounds(400, 115, 200, 30);
+        placar.setBounds(350, 50, 100, 30);
+        px.setText(X.getNome() + " Vitorias: " + PWinX + X.getPerWin() + " Derrotas: " + PDerrotaX + X.getPerL() + " Empates: " + PEmpateX + X.getPerDraw());
+        po.setText(O.getNome() + " Vitorias: " + PWinO + O.getPerWin() + " Derrotas: " + PDerrotaO + O.getPerL() + " Empates: " + PEmpateO + O.getPerDraw());
+        px.setBounds(350, 75, 320, 30);
+        po.setBounds(350, 95, 320, 30);
+        NumeroDeJogosTotal.setBounds(350, 115, 200, 30);
         NumeroDeJogosTotal.setText("Numero de Jogos já jogados: " + NumJogos.JogosTotal);
         btExit.setBounds(50, 400, 125, 30);
         btExit.setText("Ecrã Principal");
@@ -181,9 +181,6 @@ public class JogoDoGaloTeste extends JFrame {
 
     public void atualizar() {
 
-        px.setText(X.getNome() + " Vitorias: " + PWinX + " Derrotas: " + PDerrotaX + " Empates: " + PEmpateX);
-        po.setText(O.getNome() + " Vitorias: " + PWinO + " Derrotas: " + PDerrotaO + " Empates: " + PEmpateO);
-
         X.setWin(PWinX);
         O.setWin(PWinO);
         X.setEmpate(PEmpateX);
@@ -191,6 +188,11 @@ public class JogoDoGaloTeste extends JFrame {
         X.setDerrota(PDerrotaX);
         O.setDerrota(PDerrotaO);
         NumJogos.JogosTotal++;
+        X.setNumJogos();
+        O.setNumJogos();
+
+        px.setText(X.getNome() + " Vitorias: " + PWinX + " - " + X.percentagenWin() + " Derrotas: " + PDerrotaX + " - " + X.percentagenDerrota() + " Empates: " + PEmpateX + " - " + X.percentagenEmpate());
+        po.setText(O.getNome() + " Vitorias: " + PWinO + " - " + O.percentagenWin() + " Derrotas: " + PDerrotaO + " - " + O.percentagenDerrota() + " Empates: " + PEmpateO + " - " + O.percentagenEmpate());
 
         NumeroDeJogosTotal.setText("Numero de Jogos já jogados: " + NumJogos.JogosTotal);
 
